@@ -1,0 +1,40 @@
+express = require "express"
+path = require "path"
+app = express();
+server = require('http').createServer(app)
+
+###
+  Instace of DB
+###
+pathDBProxy = './databases/db-proxy'
+DBProxy = require pathDBProxy
+dbConfig =
+  dbName: 'Winter'
+  dbUser  : ''
+  dbPass  : ''
+  dbHost  : 'localhost'
+  dbPath  : 'mongoDB'
+  fileManager : 'mongooseDB.js'
+
+dbProxy = new DBProxy(dbConfig);
+
+# Set configuration Environment Server
+app.set('port', process.env.PORT || '3000')
+app.use express.favicon()
+app.use express.logger('dev')
+app.use express.bodyParser()
+app.use express.methodOverride()
+app.use app.router
+
+app.use express.static(path.join(__dirname, 'public'))
+
+app.configure('development', () ->
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }))
+
+app.configure('production', () ->
+  app.use(express.errorHandler())
+
+
+require('./routes/people')(app, dbProxy)
+
+server.listen(app.get('port'), () ->

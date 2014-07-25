@@ -2,7 +2,7 @@ express = require "express"
 path = require "path"
 mongoose = require 'mongoose'
 
-app = express();
+app = express()
 server = require('http').createServer(app)
 
 ###
@@ -17,6 +17,8 @@ dbConfig =
   dbHost  : 'localhost'
 
 mongoose.connect "mongodb://#{dbConfig.dbHost}/#{dbConfig.dbName}"
+
+
 
 
 # Set configuration Environment Server
@@ -41,6 +43,7 @@ app.configure 'production', () ->
 app.get '/', (request, respons) ->
   view = 'index'
   respons.render view
+  respons.send 'Hola franz'
 
 require('./routes/people-routes')(app)
 

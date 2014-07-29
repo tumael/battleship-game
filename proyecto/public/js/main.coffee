@@ -18,6 +18,7 @@ require.config
 
   #Angular controllers
     exampleController: 'controllers/persons-controller'
+    dibujarTableroController2: 'controllers/dibujarTableroController1' #nombre de mi archivo
 
   #Angular services
     exampleService: 'services/example-service'

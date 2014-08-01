@@ -25,6 +25,7 @@ require.config
 
   #Angular directives
     exampleDirective: 'directives/example-directive'
+    boardDirective: 'directives/board-directive'
 
   #CSS styles
     generalStyle: '../styles/index'

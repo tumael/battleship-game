@@ -10,19 +10,54 @@
 
 
   </div> -->
-    <canvas id="tablero" width="330" height="330" tamanio="30" board>Tablero</canvas>
+    <div class="row">
+        <div class="col-xs-4">
+            <canvas id="tablero" width="330" height="330" tamanio="30" board>Tablero</canvas>
+            <form role="form">
+                <fieldset>
+                              <legend>Bombardearo</legend>
+                <div class="form-group">
 
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+                    <label for="ejemplo_email_1">Posicion X:</label>
+                    <input type="number" id="replyNumber" data-bind="value:replyNumber" min="1" max="10"/>
+                    <label for="ejemplo_email_1">Posicion Y:</label>
+                    <input type="number" id="replyNumber" data-bind="value:replyNumber" min="1" max="10"/>
+                </div>
+                <p><a class="btn btn-lg btn-success" ng-href="#">Enviar!<span class="glyphicon glyphicon-ok"></span></a></p>
+                </fieldset>
+            </form>
+        </div>
+
+
+
+
+        <div class="col-xs-4 col-xs-offset-4">
+            <form role="form">
+                <fieldset>
+                              <legend>Datos de un Barco</legend>
+                <div class="form-group">
+                <div>
+                    <select id="Barco">
+                        <option>Destructor</option>
+                        <option>Submarino</option>
+                        <option>Cruzero</option>
+                        <option>Battshipt</option>
+                        <option>Portaviones</option>
+                </select>
+                </div>
+                    <label for="ejemplo_email_1">Posicion X:</label>
+                    <input type="number" id="replyNumber" data-bind="value:replyNumber" min="1" max="10"/>
+                    <label for="ejemplo_email_1">Posicion Y:</label>
+                    <input type="number" id="replyNumber" data-bind="value:replyNumber" min="1" max="10"/>
+                </div>
+                <div>
+                    <input type="radio" name="orientacion" value="Horizontal" />Horizontal<br />
+                    <input type="radio" name="orientacion" value="Vertical" />Vertical<br />
+                </div>
+                <p><a class="btn btn-lg btn-success" ng-href="#">Enviar!<span class="glyphicon glyphicon-ok"></span></a></p>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
 </div>

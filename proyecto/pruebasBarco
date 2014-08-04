@@ -1,0 +1,74 @@
+# La probe en el try on :)
+class Barco
+      #ahogado=false
+      #bombas=[]
+      constructor:(@x,@y,@longitud,@direccion)->
+        #x,y es la posicion inicial
+        #longitud de 1 a 4,lo q significa lonMax 4xtamaÃ±o sector
+        @ahogado=false
+        @bombas=[]
+        for i in [0..@longitud]
+          @bombas[i]='l'
+      getBombas: () ->
+        return @bombas
+      getAhogado: () ->
+        return @ahogado
+      recibirBomba: (bombaX,bombaY)->
+        for i in [1..@longitud]
+          #bombas cuando direccion es horizontal
+          if @direccion =='h' and (@x+i-1)==bombaX and @y==bombaY
+            @bombas[i]='b'
+          #bombas cuando direccion es vertical
+          if @direccion=='v' and @x==bombaX and (@y+i-1)==bombaY
+            @bombas[i]='b'
+        @estaAhogado()
+      estaAhogado: ()->
+        libreBombas=false
+        if @ahogado
+          return @ahogado
+        for i in [1..@longitud]
+          if @bombas[i]=='l'
+            libreBombas=true
+        @ahogado=!libreBombas
+#prueba de clase bargo, constructor
+barco=new Barco(4,5,3,'h')
+hi=barco.getBombas()
+alert('creo barco:'+barco.getBombas())
+#Recibir bomba
+barco.recibirBomba(4,5)
+alert('salio de bomba 4,5:'+barco.getBombas())
+alert 'El barco esta ahogado1:'+barco.getAhogado()
+
+barco.recibirBomba(10,10)
+alert('salio de bomba 10,10:'+barco.getBombas())
+alert 'El barco esta ahogado1:'+barco.getAhogado()
+
+#barco.recibirBomba(5,5)
+#alert 'El barco esta ahogado2:'+barco.getAhogado()
+#barco.recibirBomba(6,5)
+alert 'El barco esta ahogado3 barco0:'+barco.getAhogado()
+
+#prueba de clase bargo, constructor
+barco1=new Barco(4,5,4,'v')
+hi=barco1.getBombas()
+alert('creo barco:'+barco1.getBombas())
+#Recibir bomba
+barco1.recibirBomba(4,5)
+alert('salio de bomba 4,5:'+barco1.getBombas())
+alert 'El barco1 esta ahogado1:'+barco1.getAhogado()
+
+barco1.recibirBomba(4,9)
+alert('salio de bomba 4,9:'+barco1.getBombas())
+
+barco1.recibirBomba(4,6)
+alert('salio de bomba 4,6:'+barco1.getBombas())
+alert 'El barco1 esta ahogado2:'+barco1.getAhogado()
+barco1.recibirBomba(4,7)
+alert('salio de bomba 4,7:'+barco1.getBombas())
+alert 'El barco1 esta ahogado3:'+barco1.getAhogado()
+barco1.recibirBomba(4,8)
+alert('salio de bomba 4,8:'+barco1.getBombas())
+alert 'El barco1 esta ahogado4:'+barco1.getAhogado()
+
+alert('salio de bombas barco0:'+barco.getBombas())
+alert 'El barco0 esta ahogado1:'+barco.getAhogado()

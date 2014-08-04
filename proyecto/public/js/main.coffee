@@ -18,14 +18,14 @@ require.config
 
   #Angular controllers
     exampleController: 'controllers/persons-controller'
-    dibujarTableroController2: 'controllers/dibujarTableroController1' #nombre de mi archivo
-
+    tableroController:'controllers/tablero-controller'
   #Angular services
     exampleService: 'services/example-service'
 
   #Angular directives
     exampleDirective: 'directives/example-directive'
     boardDirective: 'directives/board-directive'
+    bombaDirective: 'directives/bomba-directive'
 
   #CSS styles
     generalStyle: '../styles/index'
@@ -44,6 +44,7 @@ require.config
     bootstrap:
       deps: ['jquery']
       exports: 'bootstrap'
+
 
   map:
     '*':

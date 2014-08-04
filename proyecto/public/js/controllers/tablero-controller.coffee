@@ -11,7 +11,7 @@ define ['controllers'], (controllers) -> #es el modulo principal de controladore
         @bombas=[]
         for i in [0..@longitud]
           @bombas[i]='l'
-      getBombas: () ->
+      getBombas: () =>
         return @bombas
       getAhogado: () ->
         return @ahogado
@@ -38,13 +38,31 @@ define ['controllers'], (controllers) -> #es el modulo principal de controladore
         @ahogado=!libreBombas
 
 #prueba de clase bargo, constructor
-    $scope.barco=new Barco(4,5,3,'h')
-    alert('creo barco:'+$scope.barco.getBombas())
+    #$scope.barco=new Barco(4,5,3,'h')
+    #alert('creo barco:'+$scope.barco.getBombas())
 
 
-    class Tablero
+    $scope.barcos=[]
+    $scope.agregarBarco=(x,y,tamanio,direccion)->
+        barco=new Barco(x,y,tamanio,direccion)
+        $scope.barcos.push(barco)
+    $scope.recibirBombas=(x,y)->
+       for i in [0..$scope.barcos.length-1]
+         $scope.barcos[i].recibirBomba(x,y)
+       if $scope.checkearBarcosUndidos()
+         alert 'flota undida'
 
-      barcos=[]
+    $scope.checkearBarcosUndidos=()->
+      #flotaUndida=false
+      for i in [0..$scope.barcos.length-1]
+         if !$scope.barcos[i].getAhogado()
+            return false
+      return true
+
+
+
+
+
 
 
   ]

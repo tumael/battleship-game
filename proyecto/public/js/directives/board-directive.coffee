@@ -6,7 +6,7 @@ define ['directives'], (directives) ->
     link: (scope, element, attrs) ->
       scope.contextoTablero = element[0].getContext("2d")
       #alert("hola "+typeof scope.contextoTablero)
-      alert('directiva board:'+scope.barco.bombas )
+      #alert('directiva board:'+scope.barco.bombas )
       scope.dibujarTablero = (alto,ancho,sector) =>
 
         #alert ("este es scope.sector: "+scope.tamanioSector)

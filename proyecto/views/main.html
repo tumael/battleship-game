@@ -2,22 +2,62 @@
   <h1>BattleShip: batalla de barcos</h1>
 
   <div ng-controller="tableroController" align="center">
-<!--        <canvas id="tablero" width="330" height="330">Tablero</canvas>
-        <p></p>
-        <button ng-click="dibujarTablero(0,0)">Dibujar Tablero</button>
-        <button ng-click="lanzarBomba(3,7)">Lanzar Bomba</button>
-      <p>Estamos {{hola}}, esperamos su comprension </p>
 
+      <div class="row">
+          <div class="col-xs-4">
+              <canvas id="tablero" width="330" height="330" tamanio="30" board>Tablero</canvas>
+              <form role="form">
+                  <fieldset>
+                      <legend>Bombardear en...</legend>
+                      <div class="form-group">
 
+                          <label >Fila:</label>
+                          <input type="number" id="replyNumberF" data-bind="value:replyNumber" min="1" max="10" ng-model='x'/>
+                          <label >Columna:</label>
+                          <input type="number" id="replyNumberG" data-bind="value:replyNumber" min="1" max="10" ng-model='y'/>
+                      </div>
+                      <p><button ng-click="recibirBombas(x,y)" x="x" y="y" dibujar-bomba>Lanzar Bomba</button></p>
 
-  </div> -->
+                  </fieldset>
+              </form>
+          </div>
 
-    <canvas id="tablero" width="330" height="330" tamanio="30" board>Tablero</canvas>
+          <div class="col-xs-4 col-xs-offset-4">
+              <form role="form">
+                  <fieldset>
+                      <legend>Datos de un Barco</legend>
+                      <div class="form-group">
+                          <div>
+                              <select id="Barco">
+                                  <option>Destructor</option>
+                                  <option>Submarino</option>
+                                  <option>Cruzero</option>
+                                  <option>Battshipt</option>
+                                  <option>Portaviones</option>
+                              </select>
+                          </div>
+                          <label >Posicion  X:</label>
+                          <input type="number" id="replyNumber3" ng-model="posX" data-bind="value:replyNumber" min="1" max="10"/>
+                          <label >Posicion Y:</label>
+                          <input type="number" id="replyNumber4" ng-model="posY" data-bind="value:replyNumber" min="1" max="10"/>
+                          <label>Longitud(1-5)</label>
+                          <input type="number" id="longitud" ng-model="longitud" min="1" max="5">
 
-  <p><button ng-click="barco.recibirBomba(6,5)" x="6" y="5" dibujarBomba>Lanzar Bomba</button></p>
+                      </div>
+                      <div>
+                          <input type="radio" name="orientacion" value="h" />Horizontal<br />
+                          <input type="radio" name="orientacion" value="v" />Vertical<br />
+                      </div>
+                      <p><button ng-click="agregarBarco(posX,posY,longitud,'h')" dibujar-barco>Crear barco</button></p>
+
+                  </fieldset>
+              </form>
+          </div>
+      </div>
+
  </div>
 </div>
-<div class="row marketing">
+<!--<div class="row marketing">
   <h4>HTML5 Boilerplate</h4>
   <p>
     HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
@@ -28,4 +68,4 @@
   </p>
   <h4>Karma</h4>
   <p>Spectacular Test Runner for JavaScript.</p>
-</div>
+</div>-->

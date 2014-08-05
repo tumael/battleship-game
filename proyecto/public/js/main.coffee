@@ -26,6 +26,7 @@ require.config
     exampleDirective: 'directives/example-directive'
     boardDirective: 'directives/board-directive'
     bombaDirective: 'directives/bomba-directive'
+    barcoDirective: 'directives/barco-directive'
 
   #CSS styles
     generalStyle: '../styles/index'

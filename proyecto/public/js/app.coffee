@@ -13,6 +13,7 @@ define [
        #la referencia y ruta al archivo se define en main.app
  "boardDirective"
  "bombaDirective"
+ "barcoDirective"
 ], (angular) ->
   battleShipsApp = angular.module "battleShipsApp", [
     "ngRoute"

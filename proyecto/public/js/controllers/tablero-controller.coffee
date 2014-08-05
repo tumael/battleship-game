@@ -50,7 +50,7 @@ define ['controllers'], (controllers) -> #es el modulo principal de controladore
        for i in [0..$scope.barcos.length-1]
          $scope.barcos[i].recibirBomba(x,y)
        if $scope.checkearBarcosUndidos()
-         alert 'flota undida'
+         alert 'flota hundida'
 
     $scope.checkearBarcosUndidos=()->
       #flotaUndida=false

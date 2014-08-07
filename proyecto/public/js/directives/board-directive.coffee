@@ -12,6 +12,7 @@ define ['directives'], (directives) ->
         #alert ("este es scope.sector: "+scope.tamanioSector)
         scope.contextoTablero.fillStyle = "#999"
         scope.contextoTablero.fillRect 0, 0, ancho, alto
+        scope.tamanioSector=sector
 
         for i  in [1..10]
           #dibujando 1,2,3,4, en cada columna

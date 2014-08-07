@@ -5,7 +5,6 @@ define ['directives'], (directives) ->
     restrict: 'E'
     link: (scope, element, attrs) ->
       scope.dibujarBarco=(x,y,longitud, orientacion)->
-        alert ('Directiva dibujar barco..'+x )
         #tablero= document.getElementById("tablero")
         #contextoTablero = tablero.getContext("2d")
 

@@ -6,10 +6,18 @@
       <div class="row">
           <div class="col-xs-4">
               <canvas id="tablero" width="330" height="330" tamanio="30" board>Tablero</canvas>
-              <barco x="3" y="3" longitud="3" orientacion="h"></barco>
+              <div ng-repeat="barco in barcos">
+                  <barco x="{{barco.x}}" y="{{barco.y}}" longitud="{{barco.longitud}}" orientacion="{{barco.direccion}}"></barco>
+
+              </div>
+              <div ng-repeat="bomba in bombasTablero">
+                  <bomba x="{{bomba.x}}" y="{{bomba.y}}" ></bomba>
+
+              </div>
+              <!-- <barco x="3" y="3" longitud="3" orientacion="h"></barco>
               <barco x="10" y="2" longitud="3" orientacion="v"></barco>
               <barco x="7" y="10" longitud="4" orientacion="h"></barco>
-              <barco x="2" y="9" longitud="2" orientacion="v"></barco>
+              <barco x="2" y="9" longitud="2" orientacion="v"></barco> -->
               <form role="form">
                   <fieldset>
                       <legend>Bombardear en...</legend>
@@ -52,7 +60,7 @@
                           <input type="radio" ng-model="orientacion" name="orientacion" value="h" />Horizontal<br />
                           <input type="radio" ng-model="orientacion" name="orientacion" value="v" />Vertical<br />
                       </div>
-                      <p><button ng-click="agregarBarco(posX,posY,longitud,orientacion)" dibujar-barco>Crear barco</button></p>
+                      <p><button ng-click="agregarBarco(posX,posY,longitud,orientacion)">Crear barco</button></p>
 
 
                   </fieldset>

@@ -1,84 +1,78 @@
-<div class="jumbotron">
-  <h1>BattleShip: batalla de barcos</h1>
-
-  <div ng-controller="tableroController" align="center">
-
-      <div class="row">
-          <div class="col-xs-4">
-              <canvas id="tablero" width="330" height="330" tamanio="30" board>Tablero</canvas>
-              <div ng-repeat="barco in barcos">
-                  <barco x="{{barco.x}}" y="{{barco.y}}" longitud="{{barco.longitud}}" orientacion="{{barco.direccion}}"></barco>
-
-              </div>
-              <div ng-repeat="bomba in bombasTablero">
-                  <bomba x="{{bomba.x}}" y="{{bomba.y}}" ></bomba>
-
-              </div>
-              <!-- <barco x="3" y="3" longitud="3" orientacion="h"></barco>
-              <barco x="10" y="2" longitud="3" orientacion="v"></barco>
-              <barco x="7" y="10" longitud="4" orientacion="h"></barco>
-              <barco x="2" y="9" longitud="2" orientacion="v"></barco> -->
-              <form role="form">
-                  <fieldset>
-                      <legend>Bombardear en...</legend>
-                      <div class="form-group">
-
-                          <label >Columna:</label>
-                          <input type="number" id="replyNumberF" data-bind="value:replyNumber" min="1" max="10" ng-model='x'/>
-                          <label >Fila:</label>
-                          <input type="number" id="replyNumberG" data-bind="value:replyNumber" min="1" max="10" ng-model='y'/>
-                      </div>
-                      <p><button ng-click="recibirBombas(x,y)" x="x" y="y" dibujar-bomba>Lanzar Bomba</button></p>
-
-                  </fieldset>
-              </form>
+<h1>BattleShip: batalla de barcos</h1>
+<div ng-controller="tableroController" align="center">
+    <div class="row">
+          <div class="col-md-6">
+                <!-- Muestra el tablero y los barcos agregados -->
+                <canvas id="tablero" width="330" height="330" tamanio="30" board>Tablero</canvas>
+                <div ng-repeat="barco in barcos">
+                    <barco x="{{barco.x}}" y="{{barco.y}}" longitud="{{barco.longitud}}" orientacion="{{barco.direccion}}"></barco>
+                </div>
+                <div ng-repeat="bomba in bombasTablero">
+                    <bomba x="{{bomba.x}}" y="{{bomba.y}}" ></bomba>
+                </div>
+                <!-- Formulario par alanzar bombars -->
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Mando de Ataque</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal bg-success" role="form">
+                            <div class="form-group">
+                                    <label class="col-sm-4 control-label">Columna:</label>
+                                    <div class="col-sm-2">
+                                        <input type="number" id="replyNumber3" ng-model="x" data-bind="value:replyNumber" min="1" max="10" class="form-control" placeholder="Valor maximo 10"/>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-4 control-label">Fila:</label>
+                                    <div class="col-sm-2">
+                                        <input type="number" id="replyNumber4" ng-model="y" data-bind="value:replyNumber" min="1" max="10" class="form-control" placeholder="5"/>
+                                    </div>
+                            </div>
+                            <button ng-click="recibirBombas(x,y)" x="x" y="y" dibujar-bomba  class="btn btn-success btn-lg btn-block">Lanzar Bomba</button>
+                        </form>
+                    </div>
+                </div>
           </div>
 
-          <div class="col-xs-4 col-xs-offset-4">
-              <form role="form">
-                  <fieldset>
-                      <legend>Datos de un Barco</legend>
-                      <div class="form-group">
-                          <div>
-                              <select id="Barco">
-                                  <option>Destructor</option>
-                                  <option>Submarino</option>
-                                  <option>Cruzero</option>
-                                  <option>Battshipt</option>
-                                  <option>Portaviones</option>
-                              </select>
-                          </div>
-                          <label >Posicion  X:</label>
-                          <input type="number" id="replyNumber3" ng-model="posX" data-bind="value:replyNumber" min="1" max="10"/>
-                          <label >Posicion Y:</label>
-                          <input type="number" id="replyNumber4" ng-model="posY" data-bind="value:replyNumber" min="1" max="10"/>
-                          <label>Longitud(1-5)</label>
-                          <input type="number" id="longitud" ng-model="longitud" min="1" max="5">
-
-                      </div>
-                      <div>
-                          <input type="radio" ng-model="orientacion" name="orientacion" value="h" />Horizontal<br />
-                          <input type="radio" ng-model="orientacion" name="orientacion" value="v" />Vertical<br />
-                      </div>
-                      <p><button ng-click="agregarBarco(posX,posY,longitud,orientacion)">Crear barco</button></p>
 
 
-                  </fieldset>
-              </form>
+          <!-- El formuario para agregar un barco -->
+          <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Agregar Flotas</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal bg-success" role="form">
+                            <div class="form-group">
+                                    <label class="col-sm-4 control-label">Posicion X:</label>
+                                    <div class="col-sm-2">
+                                        <input type="number" id="replyNumber3" ng-model="posX" data-bind="value:replyNumber" min="1" max="10" class="form-control" placeholder="Valor maximo 10"/>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-4 control-label">Posicion Y:</label>
+                                    <div class="col-sm-2">
+                                        <input type="number" id="replyNumber4" ng-model="posY" data-bind="value:replyNumber" min="1" max="10" class="form-control" placeholder="5"/>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-4 control-label">Longitud:</label>
+                                    <div class="col-sm-2">
+                                        <input type="number" id="longitud" ng-model="longitud" min="1" max="5" class="form-control">
+                                    </div>
+                            </div>
+
+                            <div class="form-group">
+                            <label class="col-sm-4 control-label">Orientacion:</label>
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="orientacion" name="orientacion" value="h" checked>Horizontal
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="orientacion" name="orientacion" value="v" />Vertical
+                            </label>
+                                </div>
+                            <button ng-click="agregarBarco(posX,posY,longitud,orientacion)" type="button" class="btn btn-success btn-lg btn-block">Agregar Barco</button>
+                        </form>
+                    </div>
+                </div>
           </div>
-      </div>
-
- </div>
+    </div>
 </div>
-<!--<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
-</div>-->

@@ -56,11 +56,12 @@ define ['controllers'], (controllers) -> #es el modulo principal de controladore
     # actualiza array bombasTablero
     # la directiva ng-repeat utiliza este array p/dibujar las bombas
     $scope.recibirBombas=(x,y)->
-       for i in [0..$scope.barcos.length-1]
-         $scope.barcos[i].recibirBomba(x,y)
-       if $scope.checkearBarcosHundidos()
-         alert 'flota hundida'
-       actualizarArregloBombasTablero(x,y)
+      if $scope.barcos.length >0
+          for i in [0..$scope.barcos.length-1]
+             $scope.barcos[i].recibirBomba(x,y)
+          if $scope.checkearBarcosHundidos()
+              alert 'flota hundida'
+          actualizarArregloBombasTablero(x,y)
 
     #esta funcion actualiza el arreglo de sitios bombardeados, para que
     # la directiva bomba, dibuje las bombas

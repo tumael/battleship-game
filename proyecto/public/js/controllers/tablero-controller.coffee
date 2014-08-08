@@ -127,10 +127,10 @@ define ['controllers'], (controllers) ->
       return true
 
     # Funcion que devuelve falso
-    # si no existe colision    # con el nuevo barco
-    long = nuevaLongitud
-    dir = nuevaDireccion
-    checkearColisionBarco = (nuevoX, nuevoY, long, dir, duenio)->
+    # si no existe colision con el nuevo barco
+    # longitud es del nuevo barco
+    # dir = direccion del barco horizontal o vertical
+    checkearColisionBarco = (nuevoX, nuevoY, longitud, dir, duenio)->
       colision = false
 
       if duenio == 's'
@@ -140,7 +140,7 @@ define ['controllers'], (controllers) ->
 
       if barcos.length > 0
         for i in [0..barcos.length-1]
-          for j in [1..nuevaLongitud]
+          for j in [1..longitud]
             if dir == 'h' and barcos[i].estaOcupadoSector(nuevoX+j-1, nuevoY)
               return true
             if dir == 'v' and barcos[i].estaOcupadoSector(nuevoX, nuevoY+j-1)

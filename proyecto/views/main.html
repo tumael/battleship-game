@@ -1,61 +1,78 @@
 <h1>BattleShip: batalla de barcos</h1>
 <div ng-controller="tableroController" align="center">
-    <div class="row">
-          <div class="col-md-6">
+	<div class="row">
+		<!--Tablero Jugador-->
+		<div class="col-md-6">
                 <!-- Muestra el tablero y los barcos agregados -->
-                <canvas id="tablero" width="330" height="330" tamanio="30" board>Tablero</canvas>
-                <div ng-repeat="barco in barcos">
-                    <barco x="{{barco.x}}" y="{{barco.y}}" longitud="{{barco.longitud}}" orientacion="{{barco.direccion}}"></barco>
+                <canvas id="tablero" width="330" height="330" tamanio="30" duenio="j" board>Tablero</canvas>
+                <div ng-repeat="barco in barcosJugador">
+                    <barco x="{{barco.x}}" y="{{barco.y}}" longitud="{{barco.longitud}}" orientacion="{{barco.direccion}}" duenio='j'></barco>
                 </div>
-                <div ng-repeat="bomba in bombasTablero">
-                    <bomba x="{{bomba.x}}" y="{{bomba.y}}" ></bomba>
+                <div ng-repeat="bomba in bombasTableroJugador">
+                    <bomba x="{{bomba.x}}" y="{{bomba.y}}" duenio='s'></bomba>
                 </div>
-                <!-- Formulario par alanzar bombars -->
-                <div class="panel panel-primary">
-                    <div class="panel-heading">Mando de Ataque</div>
-                    <div class="panel-body">
+        </div>
+
+        <!--Tablero Sistema-->
+        <div class="col-md-6 col-md-offset-md-7">
+                <!-- Muestra el tablero y los barcos agregados -->
+                <canvas id="tableroSistema" width="330" height="330" tamanio="30" duenio="s" board>Tablero</canvas>
+                <div ng-repeat="barco in barcosSistema">
+                    <barco x="{{barco.x}}" y="{{barco.y}}" longitud="{{barco.longitud}}" orientacion="{{barco.direccion}}" duenio='s'></barco>
+                </div>
+                <div ng-repeat="bomba in bombasTableroSistema">
+                    <bomba x="{{bomba.x}}" y="{{bomba.y}}" duenio='j'></bomba>
+                </div>
+        </div>
+	</div>
+
+	<div class="row">
+	<!-- Formulario par alanzar bombars -->
+		<div class="col-md-3">
+			<div class="panel panel-primary">
+        	<div class="panel-heading">Mando de Ataque</div>
+                <div class="panel-body">
                         <form class="form-horizontal bg-success" role="form">
                             <div class="form-group">
                                     <label class="col-sm-4 control-label">Columna:</label>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-4">
                                         <input type="number" id="replyNumber3" ng-model="x" data-bind="value:replyNumber" min="1" max="10" class="form-control" placeholder="Valor maximo 10"/>
                                     </div>
                             </div>
                             <div class="form-group">
                                     <label class="col-sm-4 control-label">Fila:</label>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-4">
                                         <input type="number" id="replyNumber4" ng-model="y" data-bind="value:replyNumber" min="1" max="10" class="form-control" placeholder="5"/>
                                     </div>
                             </div>
-                            <button ng-click="recibirBombas(x,y)" x="x" y="y" dibujar-bomba  class="btn btn-success btn-lg btn-block">Lanzar Bomba</button>
+                            <button ng-click="recibirBombas(x,y,'s')" x="x" y="y" class="btn btn-success btn-lg btn-block">Lanzar Bomba</button>
                         </form>
                     </div>
                 </div>
-          </div>
 
+		</div>
 
-
-          <!-- El formuario para agregar un barco -->
-          <div class="col-md-6">
+		<!-- El formuario para agregar un barco -->
+		<div class="col-md-5">
                 <div class="panel panel-primary">
                     <div class="panel-heading">Agregar Flotas</div>
                     <div class="panel-body">
                         <form class="form-horizontal bg-success" role="form">
                             <div class="form-group">
                                     <label class="col-sm-4 control-label">Posicion X:</label>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-4">
                                         <input type="number" id="replyNumber3" ng-model="posX" data-bind="value:replyNumber" min="1" max="10" class="form-control" placeholder="Valor maximo 10"/>
                                     </div>
                             </div>
                             <div class="form-group">
                                     <label class="col-sm-4 control-label">Posicion Y:</label>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-4">
                                         <input type="number" id="replyNumber4" ng-model="posY" data-bind="value:replyNumber" min="1" max="10" class="form-control" placeholder="5"/>
                                     </div>
                             </div>
                             <div class="form-group">
                                     <label class="col-sm-4 control-label">Longitud:</label>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-4">
                                         <input type="number" id="longitud" ng-model="longitud" min="1" max="5" class="form-control">
                                     </div>
                             </div>
@@ -69,10 +86,14 @@
                                 <input type="radio" ng-model="orientacion" name="orientacion" value="v" />Vertical
                             </label>
                                 </div>
-                            <button ng-click="agregarBarco(posX,posY,longitud,orientacion)" type="button" class="btn btn-success btn-lg btn-block">Agregar Barco</button>
+                            <button ng-click="agregarBarco(posX,posY,longitud,orientacion,'j')" type="button" class="btn btn-success btn-lg btn-block">Agregar Barco</button>
                         </form>
                     </div>
                 </div>
           </div>
-    </div>
+
+          <div class="col-md-offset-5">
+          	<button ng-click="agregarBarco(posX,posY,longitud,orientacion, 's')" type="button" class="btn btn-success btn-lg btn-block">Aleatorio</button>
+          </div>
+	</div>	
 </div>

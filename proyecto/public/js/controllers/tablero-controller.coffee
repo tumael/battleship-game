@@ -44,14 +44,33 @@ define ['controllers'], (controllers) -> #es el modulo principal de controladore
         if !libreBombas
            alert "barco hundido! :("
         @ahogado=!libreBombas
+      #Este metodo es true si sectorX y sectorY esta ocupado por este barco
+      estaOcupadoSector:(sectorX,sectorY)->
+        ocupado=false
+        for i in [1..@longitud]
+
+          if @direccion =='h' and (@x+i-1)==sectorX and @y==sectorY
+            return true
+
+          if @direccion=='v' and @x==sectorX and (@y+i-1)==sectorY
+            return true
+        return ocupado
+
+
 
     # Agrega un nuevo barco a nuestro tablero
     # La directiva ng-repeat  utiliza este array para dibujar los barcos
     $scope.agregarBarco=(x,y,tamanio,direccion)->
-        barco=new Barco(x,y,tamanio,direccion)
-        $scope.barcos.push(barco)
-
-    # recibe las bombas al tablero
+      if estaDentroDeTablero(x,y,tamanio,direccion)
+        if !checkearColisionBarco(x,y,tamanio,direccion)
+          barco=new Barco(x,y,tamanio,direccion)
+          $scope.barcos.push(barco)
+          alert "sin colision"
+        else
+          alert "Colision de barco: Poner nueva ubicacion"
+      else
+        alert "salio del tablero"
+     # recibe las bombas al tablero
     # actualiza estado de los barcos
     # actualiza array bombasTablero
     # la directiva ng-repeat utiliza este array p/dibujar las bombas
@@ -86,4 +105,24 @@ define ['controllers'], (controllers) -> #es el modulo principal de controladore
          if !$scope.barcos[i].getAhogado()
             return false
       return true
+
+    # Funcion que devuelve falso si no existe colision con el nuevo barco
+    checkearColisionBarco=(nuevoX,nuevoY,nuevaLongitud,nuevaDireccion)->
+      colision=false
+      if $scope.barcos.length > 0
+        for i in [0..$scope.barcos.length-1]
+          for j in [1..nuevaLongitud]
+            if nuevaDireccion =='h' and $scope.barcos[i].estaOcupadoSector(nuevoX+j-1,nuevoY)
+              return true
+            if nuevaDireccion =='v' and $scope.barcos[i].estaOcupadoSector(nuevoX,nuevoY+j-1)
+              return true
+      return colision
+
+    # Funcion que controla que el nuevo barco este dentro del tablero
+    estaDentroDeTablero=(nuevoX,nuevoY,nuevaLongitud,nuevaDireccion)->
+      if nuevaDireccion == 'h'
+        return nuevaLongitud+nuevoX-1<=10
+      else
+        return nuevaLongitud+nuevoY-1<=10
+
   ]

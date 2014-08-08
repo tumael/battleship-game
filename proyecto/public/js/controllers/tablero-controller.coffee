@@ -2,9 +2,16 @@ define ['controllers'], (controllers) -> #es el modulo principal de controladore
   controllers.controller 'tableroController', ['$scope', ($scope)->
     # estas 4 variables deben estar disponibles para su uso por las directivas
     $scope.tamanioSector=0 # numero de pixels usados por las diretivas para dibujar tablero, barcos y bombas
-    $scope.contextoTablero={}  #objeto canvas, donde ocurre toda la historia
-    $scope.barcos=[] # este array de objetos de Barco ademas de administrar los barcos, permitira a la directiva dibujar los barcos
-    $scope.bombasTablero=[]  # este arreglo, permitira a la directiva dibujar las bombas
+    $scope.contextoTableroJugador={}  #objeto canvas, donde ocurre toda la historia
+    $scope.barcosJugador=[] # este array de objetos de Barco ademas de administrar los barcos, permitira a la directiva dibujar los barcos
+    $scope.bombasTableroJugador=[]  # este arreglo, permitira a la directiva dibujar las bombas
+
+    #Variables de IA
+    $scope.contextoTableroSistema={}
+    $scope.barcosSistema=[]
+    $scope.bombasTableroSistema=[]
+    $scope.bombasTableroSistemaDibujar=[]
+
     class Barco
       constructor:(@x,@y,@longitud,@direccion)->
         #x,y es la posicion inicial
@@ -47,29 +54,39 @@ define ['controllers'], (controllers) -> #es el modulo principal de controladore
 
     # Agrega un nuevo barco a nuestro tablero
     # La directiva ng-repeat  utiliza este array para dibujar los barcos
-    $scope.agregarBarco=(x,y,tamanio,direccion)->
+    $scope.agregarBarco=(x,y,tamanio,direccion, duenio)->
+        if duenio == 's'
+          barcoAgregar=$scope.barcosSistema
+        else
+          barcoAgregar=$scope.barcosJugador
+
         barco=new Barco(x,y,tamanio,direccion)
-        $scope.barcos.push(barco)
+        barcoAgregar.push(barco)
 
     # recibe las bombas al tablero
     # actualiza estado de los barcos
     # actualiza array bombasTablero
     # la directiva ng-repeat utiliza este array p/dibujar las bombas
-    $scope.recibirBombas=(x,y)->
-      if $scope.barcos.length >0
-          for i in [0..$scope.barcos.length-1]
-             $scope.barcos[i].recibirBomba(x,y)
-          if $scope.checkearBarcosHundidos()
+    $scope.recibirBombas=(x,y, duenio)->
+      if duenio == 's'
+          barcosBombardeados=$scope.barcosSistema
+      else
+          barcosBombardeados=$scope.barcosJugador
+
+      if barcosBombardeados.length >0
+          for i in [0..barcosBombardeados.length-1]
+             barcosBombardeados[i].recibirBomba(x,y)
+          if $scope.checkearBarcosHundidos(barcosBombardeados)
               alert 'flota hundida'
-          actualizarArregloBombasTablero(x,y)
+          actualizarArregloBombasTablero(x,y, barcosBombardeados)
 
     #esta funcion actualiza el arreglo de sitios bombardeados, para que
     # la directiva bomba, dibuje las bombas
-    actualizarArregloBombasTablero=(x,y)->
+    actualizarArregloBombasTablero=(x,y, bombasTablero)->
       agregarBomba=true
-      if $scope.bombasTablero.length>0
-        for i in [0..$scope.bombasTablero.length - 1]
-          if $scope.bombasTablero[i].x==x and $scope.bombasTablero[i].y==y
+      if bombasTablero.length>0
+        for i in [0..bombasTablero.length - 1]
+          if bombasTablero[i].x==x and bombasTablero[i].y==y
             alert "Ese sitio ya fue bombardeado"
             agregarBomba=false
       if agregarBomba
@@ -77,13 +94,13 @@ define ['controllers'], (controllers) -> #es el modulo principal de controladore
            x:x
            y:y
          }
-         $scope.bombasTablero.push(nuevaBomba)
+         bombasTablero.push(nuevaBomba)
 
 
     # esta funcion devuelve true si la flota esta hundida
-    $scope.checkearBarcosHundidos=()->
-      for i in [0..$scope.barcos.length-1]
-         if !$scope.barcos[i].getAhogado()
+    $scope.checkearBarcosHundidos=(barcos)->
+      for i in [0..barcos.length-1]
+         if !barcos[i].getAhogado()
             return false
       return true
   ]

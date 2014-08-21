@@ -84,39 +84,66 @@ define ['controllers'], (controllers) ->
       else
         alert "salio del tablero"
 
+    $scope.agregarBarcoSistema=(xb,yb,tamb,dirb)->
+      #x=yb
+      #y=xb
+      #tam=(yb-xb)*(-1)
+      x=xb
+      y=yb
+      tam=tamb
+      dir=dirb
+
+      if(dirb =='h' && tamb+xb > 10)
+        x=1
+        y=yb
+        tam=tamb
+      else
+        if(dirb =='v' && tamb+yb<=10)
+          y=1
+          x=xb
+          tam=tamb
+      barco=new Barco(x,y,tam,dir)
+      $scope.barcosSistema.push(barco)
+
     # recibe las bombas al tablero
     # actualiza estado de los barcos
     # actualiza array bombasTablero
     # la directiva ng-repeat utiliza este array p/dibujar las bombas
-    $scope.recibirBombas=(x, y, duenio)->
-      if duenio == 's'
-          barcosBombardeados = $scope.barcosSistema
+    $scope.recibirBombas=(x,y, duenio)->
+      if duenio == 'j'
+          barcosBombardeados=$scope.barcosSistema
+          x = $scope.generarPuntoAtaque()
+          y = $scope.generarPuntoAtaque()
       else
-          barcosBombardeados = $scope.barcosJugador
+          barcosBombardeados=$scope.barcosJugador
 
-      if barcosBombardeados.length > 0
+      if barcosBombardeados.length >0
           for i in [0..barcosBombardeados.length-1]
-             barcosBombardeados[i].recibirBomba(x, y)
+             barcosBombardeados[i].recibirBomba(x,y)
           if $scope.checkearBarcosHundidos(barcosBombardeados)
-             alert 'flota hundida'
-          actualizarArregloBombasTablero(x, y, barcosBombardeados)
+              alert 'flota hundida'
+          $scope.actualizarArregloBombasTablero(x,y, duenio)
 
     # Esta funcion actualiza el arreglo de sitios bombardeados, para que
     # la directiva bomba, dibuje las bombas
-    actualizarArregloBombasTablero=(x, y, bombasTablero)->
-      agregarBomba = true
-      if bombasTablero.length > 0
+    $scope.actualizarArregloBombasTablero=(x,y, duenio)->
+      if duenio == 'j'
+        bombasTablero=$scope.bombasTableroJugador
+      else
+        bombasTablero=$scope.bombasTableroSistema
+
+      agregarBomba=true
+      if bombasTablero.length>0
         for i in [0..bombasTablero.length - 1]
-          if bombasTablero[i].x == x and bombasTablero[i].y==y
+          if bombasTablero[i].x==x and bombasTablero[i].y==y
             alert "Ese sitio ya fue bombardeado"
-            agregarBomba = false
+            agregarBomba=false
       if agregarBomba
-         nuevaBomba = {
+         nuevaBomba={
            x:x
            y:y
          }
          bombasTablero.push(nuevaBomba)
-
 
     # esta funcion devuelve true
     # si la flota esta hundida
@@ -146,6 +173,12 @@ define ['controllers'], (controllers) ->
             if dir == 'v' and barcos[i].estaOcupadoSector(nuevoX, nuevoY+j-1)
               return true
       return colision
+    
+    $scope.generarPuntoAtaque=()->
+      max = 10
+      min = 1
+      return Math.random() * (max - min) + min
+
 
     # Funcion que controla que el nuevo
     # barco este dentro del tablero

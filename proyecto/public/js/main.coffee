@@ -18,7 +18,7 @@ require.config
 
   #Angular controllers
     exampleController: 'controllers/persons-controller'
-    tableroController:'controllers/tablero-controller'
+    battleshipController:'controllers/battleship-controller'
   #Angular services
     exampleService: 'services/example-service'
 

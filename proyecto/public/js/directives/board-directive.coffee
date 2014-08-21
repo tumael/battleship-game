@@ -1,17 +1,19 @@
 'use strict'
 
 define ['directives'], (directives) ->
- directives.directive 'board', ()->
+ directives.directive 'board', () ->
     restrict: 'A'
     link: (scope, element, attrs) ->
       if attrs.duenio == 's'
         scope.contextoTableroSistema = element[0].getContext("2d")
-        contextoTablero = scope.contextoTableroSistema
+        contextoTablero= scope.contextoTableroSistema
       else
         scope.contextoTableroJugador = element[0].getContext("2d")
-        contextoTablero = scope.contextoTableroJugador
+        contextoTablero=scope.contextoTableroJugador
 
-      dibujarTablero = (alto, ancho, sector)->
+      dibujarTablero = (alto,ancho,sector) =>
+
+        #alert ("este es scope.sector: "+scope.tamanioSector)
         contextoTablero.fillStyle = "#999"
         contextoTablero.fillRect 0, 0, ancho, alto
         scope.tamanioSector=sector
@@ -37,7 +39,4 @@ define ['directives'], (directives) ->
           contextoTablero.strokeStyle = "#eee"  #color de la tinta
           contextoTablero.stroke()  #poniendo la tinta a lo dibujado
 
-      alto = parseInt(attrs.height)
-      ancho = parseInt(attrs.width)
-      tam = parseInt(attrs.tamanio)
-      dibujarTablero alto, ancho, tam
+      dibujarTablero parseInt(attrs.height),parseInt(attrs.width), parseInt(attrs.tamanio)
